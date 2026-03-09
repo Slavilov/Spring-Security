@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Football Pairs Final Project</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Football Pairs Final Project</h1>
+    <p class="subtitle">Java + OOP + Database + Spring MVC</p>
+
+    <div class="card">
+        <h2>What this app does</h2>
+        <p>It imports football data from CSV files, stores it in an SQL database, and finds the pair of players that played together for the longest total time.</p>
+    </div>
+
+    <div class="stats">
+        <div class="stat-box">
+            <h3>Teams</h3>
+            <p th:text="${teamCount}">0</p>
+        </div>
+        <div class="stat-box">
+            <h3>Players</h3>
+            <p th:text="${playerCount}">0</p>
+        </div>
+        <div class="stat-box">
+            <h3>Matches</h3>
+            <p th:text="${matchCount}">0</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Navigation</h2>
+        <div class="links">
+            <a href="/analysis">Analysis Report</a>
+            <a href="/teams">Teams CRUD</a>
+            <a href="/players">Players CRUD</a>
+            <a href="/matches">Matches CRUD</a>
+            <a href="/import">Re-import CSV Data</a>
+            <a href="/h2-console">H2 Console</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

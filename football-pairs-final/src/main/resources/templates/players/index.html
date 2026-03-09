@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Players</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <a href="/">← Back to Home</a>
+    <h1>Players</h1>
+
+    <div class="grid-two">
+        <div class="card">
+            <h2>Player Form</h2>
+            <form th:action="@{${formAction}}" th:object="${player}" method="post">
+                <label>ID</label>
+                <input type="number" th:field="*{id}" placeholder="1">
+
+                <label>Team Number</label>
+                <input type="number" th:field="*{teamNumber}" placeholder="1">
+
+                <label>Position</label>
+                <input type="text" th:field="*{position}" placeholder="GK">
+
+                <label>Full Name</label>
+                <input type="text" th:field="*{fullName}" placeholder="Manuel Neuer">
+
+                <label>Team</label>
+                <select th:field="*{team}">
+                    <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
+                </select>
+
+                <button type="submit">Save Player</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>All Players</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>#</th>
+                    <th>Position</th>
+                    <th>Full Name</th>
+                    <th>Team</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="playerItem : ${players}">
+                    <td th:text="${playerItem.id}"></td>
+                    <td th:text="${playerItem.teamNumber}"></td>
+                    <td th:text="${playerItem.position}"></td>
+                    <td th:text="${playerItem.fullName}"></td>
+                    <td th:text="${playerItem.team.name}"></td>
+                    <td class="actions">
+                        <a th:href="@{'/players/edit/' + ${playerItem.id}}">Edit</a>
+                        <form th:action="@{'/players/delete/' + ${playerItem.id}}" method="post">
+                            <button type="submit" class="danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pair Analysis</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <a href="/">← Back to Home</a>
+    <h1>Player Pair Analysis</h1>
+
+    <div class="card" th:if="${topPair != null}">
+        <h2>Top Pair</h2>
+        <p>
+            <strong th:text="${topPair.player1Name}">Player 1</strong>
+            and
+            <strong th:text="${topPair.player2Name}">Player 2</strong>
+            played together for
+            <strong th:text="${topPair.totalSharedMinutes}">0</strong>
+            minutes.
+        </p>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Match ID</th>
+                <th>Match</th>
+                <th>Shared Minutes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="detail : ${topPair.matchDetails}">
+                <td th:text="${detail.matchId}"></td>
+                <td th:text="${detail.matchTitle}"></td>
+                <td th:text="${detail.sharedMinutes}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>All Pairs Ranked</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Player 1</th>
+                <th>Player 2</th>
+                <th>Total Shared Minutes</th>
+                <th>Per Match Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="result : ${results}">
+                <td th:text="${result.player1Name}"></td>
+                <td th:text="${result.player2Name}"></td>
+                <td th:text="${result.totalSharedMinutes}"></td>
+                <td>
+                    <ul>
+                        <li th:each="detail : ${result.matchDetails}">
+                            Match <span th:text="${detail.matchId}"></span>
+                            (<span th:text="${detail.matchTitle}"></span>)
+                            - <span th:text="${detail.sharedMinutes}"></span> min
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

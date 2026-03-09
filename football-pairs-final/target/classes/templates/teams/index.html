@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Teams</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <a href="/">← Back to Home</a>
+    <h1>Teams</h1>
+
+    <div class="grid-two">
+        <div class="card">
+            <h2>Team Form</h2>
+            <form th:action="@{${formAction}}" th:object="${team}" method="post">
+                <label>ID</label>
+                <input type="number" th:field="*{id}" placeholder="1">
+
+                <label>Name</label>
+                <input type="text" th:field="*{name}" placeholder="Germany">
+
+                <label>Manager Full Name</label>
+                <input type="text" th:field="*{managerFullName}" placeholder="Julian Nagelsmann">
+
+                <label>Group</label>
+                <input type="text" th:field="*{groupName}" placeholder="A">
+
+                <button type="submit">Save Team</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>All Teams</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Manager</th>
+                    <th>Group</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="teamItem : ${teams}">
+                    <td th:text="${teamItem.id}"></td>
+                    <td th:text="${teamItem.name}"></td>
+                    <td th:text="${teamItem.managerFullName}"></td>
+                    <td th:text="${teamItem.groupName}"></td>
+                    <td class="actions">
+                        <a th:href="@{'/teams/edit/' + ${teamItem.id}}">Edit</a>
+                        <form th:action="@{'/teams/delete/' + ${teamItem.id}}" method="post">
+                            <button type="submit" class="danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

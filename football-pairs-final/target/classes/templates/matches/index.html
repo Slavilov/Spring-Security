@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Matches</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <a href="/">← Back to Home</a>
+    <h1>Matches</h1>
+
+    <div class="grid-two">
+        <div class="card">
+            <h2>Match Form</h2>
+            <form th:action="@{${formAction}}" th:object="${footballMatch}" method="post">
+                <label>ID</label>
+                <input type="number" th:field="*{id}" placeholder="1">
+
+                <label>Team A</label>
+                <select th:field="*{teamA}">
+                    <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
+                </select>
+
+                <label>Team B</label>
+                <select th:field="*{teamB}">
+                    <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
+                </select>
+
+                <label>Date</label>
+                <input type="text" name="rawDate" th:value="${dateValue}" placeholder="6/14/2024 or 2024-06-14">
+
+                <label>Score</label>
+                <input type="text" th:field="*{score}" placeholder="5-1">
+
+                <button type="submit">Save Match</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>All Matches</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Match</th>
+                    <th>Date</th>
+                    <th>Score</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="match : ${matches}">
+                    <td th:text="${match.id}"></td>
+                    <td th:text="${match.displayTitle}"></td>
+                    <td th:text="${match.date}"></td>
+                    <td th:text="${match.score}"></td>
+                    <td class="actions">
+                        <a th:href="@{'/matches/edit/' + ${match.id}}">Edit</a>
+                        <form th:action="@{'/matches/delete/' + ${match.id}}" method="post">
+                            <button type="submit" class="danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
